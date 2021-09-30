@@ -10,6 +10,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.List;
+
 public class Day02_2LocatorsIntro {
     /*
     Create a class : LocatorsIntro
@@ -19,7 +21,7 @@ Locate the elements of email textbox, password textbox, and signin button
 Enter below username and password then click sign in button
 Username :  testtechproed@gmail.com
 Password : Test1234!
-Then verify that the expected user id  testtechproed@gmail.com (USE getText() method to get the text from the page) 
+Then verify that the expected user id  testtechproed@gmail.com (USE getText() method to get the text from the page)
 Verify the Addresses and Sign Out  texts are displayed
 Find the number of total link on the page
 Sign out from the page
@@ -39,8 +41,8 @@ Sign out from the page
     public void locators(){
         driver.get("http://a.testaddressbook.com/sign_in");
         driver.
-                findElement(By.id("session_email")).  ////Locating the element by id
-                sendKeys("testtechproed@gmail.com");  ////typing in the element
+                findElement(By.id("session_email")).  //Locating the element by id
+                sendKeys("testtechproed@gmail.com");  //typing in the element
         //OR (RETURN TYPE OF findElement is WebElement)
         // WebElement emailBox=driver.findElement(By.id("session_email"));
         // emailBox.sendKeys("testtechproed@gmail.com");
@@ -65,9 +67,41 @@ Sign out from the page
         String expectedUserId="testtechproed@gmail.com";
         Assert.assertEquals(expectedUserId,userIdText);
 
-//        Verify the Addresses and Sign Out texts are displayed
-//        Find the number of total link on the page
-//        Sign out from the page
+        //Verify the Addresses and Sign Out texts are displayed
+        //The text of Addresses link is Addresses
+        WebElement addressesElement = driver.findElement(By.linkText("Addresses"));
+
+        //isDisplayed() method is used to verify if an element is on the page or not
+        //Return type is boolean
+        //Returns true if element is on the page
+        //returns false if element is not on the page
+        Assert.assertTrue(addressesElement.isDisplayed());
+
+        //Sign Out element is displayed on the page or not
+        WebElement singOutElement = driver.findElement(By.linkText("Sign out"));
+        Assert.assertTrue(singOutElement.isDisplayed());
+        WebElement singOutElement1 = driver.findElement(By.partialLinkText("gn out"));
+        Assert.assertTrue(singOutElement1.isDisplayed());
+
+        //What is the difference between linktext and partiallinktext?
+        //linktext -> we must give the entire text with extra spaces and all
+        //partialLinkText-> we can give the entire text or part of the text
+
+        //Find the number of total link on the page
+        //Links are created by a tag, so we can find all links by finding all elements with a tag
+        List<WebElement> allLinks = driver.findElements(By.tagName("a"));
+        int linkSize = allLinks.size();
+        System.out.println("Number of the link is " + linkSize);
+
+        //Sign out from the page
+        driver.findElement(By.linkText("Sign out")).click();
+
+        //Verify the sign out is successful
+        boolean isLoggedOut = driver.
+                                    getCurrentUrl().
+                                    equals("http://a.testaddressbook.com/sign_in");
+        Assert.assertTrue(isLoggedOut);
+
 
     }
 }
