@@ -30,22 +30,15 @@ public class Day06_IFrame {
         String expected="Editor";
         Assert.assertTrue(actualBoldedText.contains(expected));
         //Locate the text box
+
         //1. Switching to iframe by index. -index starts from 0
-        //driver.switchTo().frame(0);
-        /*
-        2. Switching iframe by id/name.
-        This iframe has an id, then i can pass value of id and switch to the iframe
-         <iframe
-         id="mce_0_ifr"
-         frameborder="0"
-         allowtransparency="true"
-         title="Rich Text Area. Press ALT-0 for help."
-         class="tox-edit-area__iframe"></iframe>
-          */
-        driver.switchTo().frame("mce_0_ifr");
-        /*
-         * 3.Switching iframe by WebElement
-         * */
+        //driver.switchTo().frame(0)
+
+        //2. Switching iframe by id/name.
+        //This iframe has an id, then i can pass value of id and switch to the iframe
+        //driver.switchTo().frame("mce_0_ifr");
+
+        //3.Switching iframe by WebElement
         WebElement iframeElement = driver.findElement(By.xpath("//iframe[@id='mce_0_ifr']"));
         driver.switchTo().frame(iframeElement);
         //NOTE: //p element is inside the iframe

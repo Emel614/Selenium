@@ -44,6 +44,7 @@ public class Day04_GoogleSearch {
     }
     @After
     public void tearDown(){
+
         driver.close();
     }
 
